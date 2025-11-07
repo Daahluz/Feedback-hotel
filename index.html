@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - Hotel Estrela Dourada</title>
+    <style>
+        /* Variáveis CSS */
+        :root {
+            --cor-primaria: #f4c430; /* Dourado */
+            --cor-secundaria: #333d47; /* Azul Escuro */
+            --cor-fundo: #f8f8f8;
+            --cor-borda: #ccc;
+        }
+
+        /* Estilos Base */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-secundaria);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .feedback-container {
+            width: 100%;
+            max-width: 650px;
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--cor-secundaria);
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--cor-primaria);
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--cor-primaria);
+            padding-bottom: 10px;
+        }
+
+        /* Estilo dos Grupos de Campo */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--cor-secundaria);
+        }
+
+        /* Estilo dos Inputs e Textarea */
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--cor-borda);
+            border-radius: 6px;
+            box-sizing: border-box; /* Garante que padding não altere a largura total */
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--cor-primaria);
+            outline: none;
+            box-shadow: 0 0 5px rgba(244, 196, 48, 0.5);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* ------------------------------------- */
+        /* Estilo das Avaliações por Estrela (Star Rating) */
+        /* ------------------------------------- */
+        .rating-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap; /* Permite quebrar linha em telas pequenas */
+        }
+        
+        .rating-item {
+            flex: 1;
+            min-width: 250px; /* Garante espaço mínimo para cada item */
+        }
+
+        .rating-label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .stars {
+            unicode-bidi: bidi-override;
+            direction: rtl; /* Inverte a direção para facilitar o CSS */
+            text-align: left;
+            font-size: 28px;
+            line-height: 1;
+        }
+        
+        .stars > input {
+            display: none; /* Esconde os botões de rádio originais */
+        }
+
+        .stars > label {
+            display: inline-block;
+            margin: 0;
+            padding: 0 2px;
+            cursor: pointer;
+            color: #ddd; /* Estrela não preenchida (cinza claro) */
+            transition: color 0.3s;
+        }
+
+        /* Efeito Hover e Preenchimento */
+        .stars > label:hover,
+        .stars > label:hover ~ label,
+        .stars > input:checked ~ label {
+            color: var(--cor-primaria); /* Estrela preenchida (dourado) */
+        }
+
+        /* ------------------------------------- */
+        /* Botão de Envio */
+        /* ------------------------------------- */
+        .submit-button {
+            background-color: var(--cor-primaria);
+            color: var(--cor-secundaria);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            display: block;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .submit-button:hover {
+            background-color: #e6b000;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="feedback-container">
+        <header>
+            <h1>Obrigado por se Hospedar Conosco!</h1>
+            <h2>Queremos ouvir sua opinião.</h2>
+        </header>
+
+        <form action="/submit_feedback" method="POST">
+            
+            <fieldset class="form-group">
+                <legend style="font-weight: bold; margin-bottom: 15px; color: var(--cor-secundaria);">Sua Avaliação Geral (1 a 5 Estrelas)</legend>
+
+                <div class="rating-group">
+                    
+                    <div class="rating-item">
+                        <label class="rating-label">Quarto e Limpeza:</label>
+                        <div class="stars">
+                            <input type="radio" id="quarto5" name="quarto" value="5" required /><label for="quarto5">★</label>
+                            <input type="radio" id="quarto4" name="quarto" value="4" /><label for="quarto4">★</label>
+                            <input type="radio" id="quarto3" name="quarto" value="3" /><label for="quarto3">★</label>
+                            <input type="radio" id="quarto2" name="quarto" value="2" /><label for="quarto2">★</label>
+                            <input type="radio" id="quarto1" name="quarto" value="1" /><label for="quarto1">★</label>
+                        </div>
+                    </div>
+                    
+                    <div class="rating-item">
+                        <label class="rating-label">Atendimento da Equipe:</label>
+                        <div class="stars">
+                            <input type="radio" id="equipe5" name="equipe" value="5" required /><label for="equipe5">★</label>
+                            <input type="radio" id="equipe4" name="equipe" value="4" /><label for="equipe4">★</label>
+                            <input type="radio" id="equipe3" name="equipe" value="3" /><label for="equipe3">★</label>
+                            <input type="radio" id="equipe2" name="equipe" value="2" /><label for="equipe2">★</label>
+                            <input type="radio" id="equipe1" name="equipe" value="1" /><label for="equipe1">★</label>
+                        </div>
+                    </div>
+
+                    <div class="rating-item">
+                        <label class="rating-label">Café da Manhã/Refeições:</label>
+                        <div class="stars">
+                            <input type="radio" id="cafe5" name="cafe" value="5" required /><label for="cafe5">★</label>
+                            <input type="radio" id="cafe4" name="cafe" value="4" /><label for="cafe4">★</label>
+                            <input type="radio" id="cafe3" name="cafe" value="3" /><label for="cafe3">★</label>
+                            <input type="radio" id="cafe2" name="cafe" value="2" /><label for="cafe2">★</label>
+                            <input type="radio" id="cafe1" name="cafe" value="1" /><label for="cafe1">★</label>
+                        </div>
+                    </div>
+                    
+                </div>
+            </fieldset>
+
+            <div class="form-group">
+                <label for="comentarios">Comentários e Sugestões:</label>
+                <textarea id="comentarios" name="comentarios" placeholder="O que você mais gostou e o que podemos melhorar?"></textarea>
+            </div>
+
+            <fieldset class="form-group">
+                <legend style="font-weight: bold; margin-bottom: 15px; color: var(--cor-secundaria);">Seus Dados (Opcional)</legend>
+                
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" placeholder="Seu nome completo">
+                
+                <label for="email" style="margin-top: 15px;">E-mail:</label>
+                <input type="email" id="email" name="email" placeholder="seu.email@exemplo.com">
+            </fieldset>
+
+            <button type="submit" class="submit-button">Enviar Feedback</button>
+
+        </form>
+    </div>
+
+</body>
+</html>
